@@ -266,44 +266,25 @@
                 <span class="section-tag">Наши работы</span>
                 <h2 class="section-title">Галерея причесок</h2>
             </div>
-            <div class="gallery-mosaic">
-                <div class="gm-item gm-large">
-                    <img src="img/classik.jpg" alt="Классическая стрижка" />
-                    <div class="gm-hover">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+            <div class="gallery-carousel">
+                <button class="gc-btn gc-btn-prev" aria-label="Назад">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+                <div class="gc-track-wrap">
+                    <div class="gc-track">
+                        <div class="gc-slide"><img src="img/classik.jpg" alt="Классическая стрижка" /></div>
+                        <div class="gc-slide"><img src="img/feid_uzor.jfif" alt="Фейд с узором" /></div>
+                        <div class="gc-slide"><img src="img/crop.jpg" alt="Кроп" /></div>
+                        <div class="gc-slide"><img src="img/boroda.jfif" alt="Борода" /></div>
+                        <div class="gc-slide"><img src="img/kudri.jfif" alt="Кудри" /></div>
+                        <div class="gc-slide"><img src="img/Stori.jfif" alt="Стори" /></div>
                     </div>
                 </div>
-                <div class="gm-item">
-                    <img src="img/feid_uzor.jfif" alt="Фейд с узором" />
-                    <div class="gm-hover">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
-                    </div>
-                </div>
-                <div class="gm-item">
-                    <img src="img/crop.jpg" alt="Кроп" />
-                    <div class="gm-hover">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
-                    </div>
-                </div>
-                <div class="gm-item">
-                    <img src="img/boroda.jfif" alt="Борода" />
-                    <div class="gm-hover">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
-                    </div>
-                </div>
-                <div class="gm-item">
-                    <img src="img/kudri.jfif" alt="Кудри" />
-                    <div class="gm-hover">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
-                    </div>
-                </div>
-                <div class="gm-item">
-                    <img src="img/Stori.jfif" alt="Стори" />
-                    <div class="gm-hover">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
-                    </div>
-                </div>
+                <button class="gc-btn gc-btn-next" aria-label="Вперёд">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
             </div>
+            <div class="gc-dots"></div>
         </div>
     </section>
 

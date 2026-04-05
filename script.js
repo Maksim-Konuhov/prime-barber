@@ -218,5 +218,81 @@ document.querySelectorAll('.service-card, .master-card, .gallery-item, .about-co
     observer.observe(el);
 });
 
+// Gallery Carousel
+(function () {
+    const track = document.querySelector('.gc-track');
+    const slides = document.querySelectorAll('.gc-slide');
+    const dotsWrap = document.querySelector('.gc-dots');
+    const btnPrev = document.querySelector('.gc-btn-prev');
+    const btnNext = document.querySelector('.gc-btn-next');
+
+    if (!track || !slides.length) return;
+
+    let current = 0;
+    const total = slides.length;
+
+    // Build dots
+    slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'gc-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Фото ' + (i + 1));
+        dot.addEventListener('click', () => goTo(i));
+        dotsWrap.appendChild(dot);
+    });
+
+    function update() {
+        slides.forEach((s, i) => s.classList.toggle('active', i === current));
+        dotsWrap.querySelectorAll('.gc-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+
+        // Center active slide: shift track so active is in center
+        const wrap = document.querySelector('.gc-track-wrap');
+        const wrapW = wrap.offsetWidth;
+        const slideW = slides[0].offsetWidth;
+        const gap = 16;
+        const offset = current * (slideW + gap) - (wrapW - slideW) / 2;
+        track.style.transform = `translateX(${-Math.max(0, offset)}px)`;
+    }
+
+    function goTo(index) {
+        current = (index + total) % total;
+        update();
+    }
+
+    btnPrev.addEventListener('click', () => goTo(current - 1));
+    btnNext.addEventListener('click', () => goTo(current + 1));
+
+    // Click on side slides to navigate
+    slides.forEach((s, i) => s.addEventListener('click', () => goTo(i)));
+
+    // Touch / swipe
+    let startX = 0;
+    track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', e => {
+        const diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
+    });
+
+    // Mouse drag
+    let dragStart = null;
+    track.addEventListener('mousedown', e => { dragStart = e.clientX; });
+    track.addEventListener('mouseup', e => {
+        if (dragStart === null) return;
+        const diff = dragStart - e.clientX;
+        if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
+        dragStart = null;
+    });
+
+    // Keyboard
+    document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowLeft') goTo(current - 1);
+        if (e.key === 'ArrowRight') goTo(current + 1);
+    });
+
+    // Init
+    slides[0].classList.add('active');
+    update();
+    window.addEventListener('resize', update);
+})();
+
 // Initialize
 console.log('Prime Barber website loaded successfully!');
