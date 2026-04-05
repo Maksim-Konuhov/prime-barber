@@ -564,48 +564,54 @@ section {
 }
 
 /* Gallery Section */
-.gallery-carousel {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 16px;
+.gallery {
+    overflow: hidden;
 }
 
-.gc-track-wrap {
+.gallery-carousel-wrap {
+    position: relative;
+}
+
+.gallery-carousel {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 0 -40px;
+}
+
+.gc-track-outer {
     flex: 1;
     overflow: hidden;
-    border-radius: 18px;
+    padding: 16px 0;
 }
 
 .gc-track {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
 }
 
 .gc-slide {
-    flex: 0 0 calc(60% - 8px);
+    flex: 0 0 62%;
     border-radius: 16px;
     overflow: hidden;
-    transition: transform 0.5s ease, opacity 0.5s ease, filter 0.5s ease;
-    opacity: 0.45;
-    filter: brightness(0.6) scale(0.95);
-    transform: scale(0.92);
+    transition: transform 0.5s ease, opacity 0.5s ease, box-shadow 0.5s ease;
+    opacity: 0.4;
+    transform: scale(0.9);
     cursor: pointer;
 }
 
 .gc-slide.active {
     opacity: 1;
-    filter: brightness(1);
     transform: scale(1);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+    box-shadow: 0 24px 64px rgba(0,0,0,0.5);
 }
 
 .gc-slide img {
     width: 100%;
-    height: 380px;
+    height: 360px;
     object-fit: cover;
     display: block;
     pointer-events: none;
@@ -614,8 +620,8 @@ section {
 
 .gc-btn {
     flex-shrink: 0;
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -626,6 +632,7 @@ section {
     justify-content: center;
     transition: background 0.2s, border-color 0.2s, transform 0.2s;
     z-index: 2;
+    margin: 0 6px;
 }
 
 .gc-btn:hover {
@@ -639,7 +646,7 @@ section {
     display: flex;
     justify-content: center;
     gap: 8px;
-    margin-top: 20px;
+    margin-top: 16px;
 }
 
 .gc-dot {
@@ -647,25 +654,30 @@ section {
     height: 8px;
     border-radius: 50%;
     background: var(--border);
+    border: none;
     cursor: pointer;
     transition: background 0.3s, transform 0.3s;
+    padding: 0;
 }
 
 .gc-dot.active {
     background: var(--secondary-color);
-    transform: scale(1.3);
+    transform: scale(1.35);
 }
 
 @media (max-width: 600px) {
+    .gallery-carousel {
+        margin: 0 -20px;
+    }
     .gc-slide {
-        flex: 0 0 80%;
+        flex: 0 0 76%;
     }
     .gc-slide img {
-        height: 260px;
+        height: 240px;
     }
     .gc-btn {
-        width: 38px;
-        height: 38px;
+        width: 36px;
+        height: 36px;
     }
 }
 
