@@ -333,75 +333,73 @@ section {
     background: var(--bg-secondary);
 }
 
-.services-grid {
+.pricing-wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+    margin-top: 50px;
 }
 
-.service-card {
+.pricing-card {
     background: var(--bg-card);
-    padding: 40px 30px;
-    border-radius: 10px;
-    text-align: center;
     border: 1px solid var(--border);
-    border-left: 4px solid var(--secondary-color);
+    border-radius: 10px;
+    overflow: hidden;
     transition: all 0.3s ease;
-    position: relative;
 }
 
-.service-card:nth-child(1) {
-    border-left-color: #ff6b6b;
-}
-
-.service-card:nth-child(2) {
-    border-left-color: #ffa94d;
-}
-
-.service-card:nth-child(3) {
-    border-left-color: #4dabf7;
-}
-
-.service-card:nth-child(4) {
-    border-left-color: #51cf66;
-}
-
-.service-card:nth-child(5) {
-    border-left-color: #b197fc;
-}
-
-.service-card:nth-child(6) {
-    border-left-color: #d4a574;
-}
-
-.service-card:hover {
-    transform: translateY(-10px);
+.pricing-card:hover {
+    transform: translateY(-5px);
     box-shadow: var(--shadow-lg);
-    border-color: var(--secondary-color);
 }
 
-.service-icon {
-    font-size: 3rem;
-    margin-bottom: 20px;
+.pricing-header {
+    background: linear-gradient(135deg, #d4a574 0%, #8b6f47 100%);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
 }
 
-.service-card h3 {
-    font-size: 1.3rem;
-    margin-bottom: 15px;
+.pricing-header.premium-header {
+    background: linear-gradient(135deg, #ff6b6b 0%, #cd5c5c 100%);
+}
+
+.pricing-header.elite-header {
+    background: linear-gradient(135deg, #4dabf7 0%, #1c7ed6 100%);
+}
+
+.pricing-list {
+    list-style: none;
+    padding: 20px;
+}
+
+.pricing-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
     color: var(--text);
 }
 
-.service-card p {
-    color: var(--text-muted);
-    margin-bottom: 20px;
-    font-size: 0.95rem;
+.pricing-list li:last-child {
+    border-bottom: none;
 }
 
-.service-price {
-    display: inline-block;
-    font-size: 1.5rem;
+.pricing-list span:first-child {
+    flex: 1;
+}
+
+.pricing-list .price {
     font-weight: 700;
     color: var(--secondary-color);
+    margin-left: 15px;
+    text-align: right;
+    min-width: 80px;
 }
 
 /* Masters Section */
