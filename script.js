@@ -179,19 +179,16 @@ document.querySelectorAll('.service-card, .master-card, .gallery-item, .about-co
 
 // Gallery Carousel
 (function () {
-    const carousel = document.querySelector('.gallery-carousel');
-    if (!carousel) return;
-    const track = document.querySelector('.gc-track');
+    const carousel = document.getElementById('galleryCarousel');
     const slides = Array.from(document.querySelectorAll('.gc-slide'));
     const dotsWrap = document.querySelector('.gc-dots');
     const btnPrev = document.querySelector('.gc-btn-prev');
     const btnNext = document.querySelector('.gc-btn-next');
 
-    if (!track || !slides.length) return;
+    if (!carousel || !slides.length) return;
 
     let current = 0;
     const total = slides.length;
-    const GAP = 16;
 
     // Build dots
     slides.forEach((_, i) => {
@@ -202,55 +199,39 @@ document.querySelectorAll('.service-card, .master-card, .gallery-item, .about-co
         dotsWrap.appendChild(dot);
     });
 
-    function update() {
-        slides.forEach((s, i) => s.classList.toggle('active', i === current));
-        dotsWrap.querySelectorAll('.gc-dot').forEach((d, i) => d.classList.toggle('active', i === current));
-
-        const carouselW = carousel.offsetWidth;
-        const slideW = slides[0].offsetWidth;
-        // Center active slide inside carousel
-        const offset = current * (slideW + GAP) - (carouselW - slideW) / 2;
-        track.style.transform = `translateX(${-offset}px)`;
-    }
-
     function goTo(index) {
         current = (index + total) % total;
-        update();
+        slides.forEach((s, i) => s.classList.toggle('active', i === current));
+        dotsWrap.querySelectorAll('.gc-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+        slides[current].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     }
 
     btnPrev.addEventListener('click', () => goTo(current - 1));
     btnNext.addEventListener('click', () => goTo(current + 1));
 
-    slides.forEach((s, i) => s.addEventListener('click', () => { if (i !== current) goTo(i); }));
+    slides.forEach((s, i) => s.addEventListener('click', () => goTo(i)));
 
-    // Touch swipe
-    let startX = 0;
-    const outer = document.querySelector('.gallery-carousel-outer');
-    outer.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-    outer.addEventListener('touchend', e => {
-        const diff = startX - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
+    // Update active dot on scroll
+    let scrollTimer;
+    carousel.addEventListener('scroll', () => {
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+            const center = carousel.scrollLeft + carousel.offsetWidth / 2;
+            let closest = 0, minDist = Infinity;
+            slides.forEach((s, i) => {
+                const dist = Math.abs(s.offsetLeft + s.offsetWidth / 2 - center);
+                if (dist < minDist) { minDist = dist; closest = i; }
+            });
+            if (closest !== current) {
+                current = closest;
+                slides.forEach((s, i) => s.classList.toggle('active', i === current));
+                dotsWrap.querySelectorAll('.gc-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+            }
+        }, 80);
     });
 
-    // Mouse drag
-    let dragStart = null;
-    outer.addEventListener('mousedown', e => { dragStart = e.clientX; });
-    window.addEventListener('mouseup', e => {
-        if (dragStart === null) return;
-        const diff = dragStart - e.clientX;
-        if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
-        dragStart = null;
-    });
-
-    // Keyboard
-    document.addEventListener('keydown', e => {
-        if (e.key === 'ArrowLeft') goTo(current - 1);
-        if (e.key === 'ArrowRight') goTo(current + 1);
-    });
-
+    // Init
     slides[0].classList.add('active');
-    update();
-    window.addEventListener('resize', update);
 })();
 
 // Initialize

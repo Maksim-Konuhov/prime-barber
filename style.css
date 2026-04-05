@@ -564,46 +564,46 @@ section {
 }
 
 /* Gallery Section */
-.gallery {
-    overflow: hidden;
-}
-
 .gallery-carousel-outer {
     position: relative;
 }
 
 .gallery-carousel {
-    overflow: hidden;
-    border-radius: 16px;
-}
-
-.gc-track {
     display: flex;
     gap: 16px;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform;
-    padding: 10px 0;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 12px 20%;
+    scroll-padding-inline: 20%;
+}
+
+.gallery-carousel::-webkit-scrollbar {
+    display: none;
 }
 
 .gc-slide {
     flex: 0 0 60%;
+    scroll-snap-align: center;
     border-radius: 14px;
     overflow: hidden;
-    transition: transform 0.5s ease, opacity 0.5s ease, box-shadow 0.5s ease;
-    opacity: 0.35;
-    transform: scale(0.92);
+    opacity: 0.4;
+    transform: scale(0.93);
+    transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
     cursor: pointer;
 }
 
 .gc-slide.active {
     opacity: 1;
     transform: scale(1);
-    box-shadow: 0 16px 48px rgba(0,0,0,0.45);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.4);
 }
 
 .gc-slide img {
     width: 100%;
-    max-height: 360px;
+    max-height: 380px;
     height: auto;
     object-fit: contain;
     display: block;
@@ -625,18 +625,17 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    transition: background 0.2s, border-color 0.2s;
     z-index: 10;
 }
 
-.gc-btn-prev { left: -22px; }
-.gc-btn-next { right: -22px; }
+.gc-btn-prev { left: 0; }
+.gc-btn-next { right: 0; }
 
 .gc-btn:hover {
     background: var(--secondary-color);
     border-color: var(--secondary-color);
     color: white;
-    transform: translateY(-50%) scale(1.1);
 }
 
 .gc-dots {
@@ -663,11 +662,8 @@ section {
 }
 
 @media (max-width: 600px) {
-    .gc-slide {
-        flex: 0 0 80%;
-    }
-    .gc-btn-prev { left: -16px; }
-    .gc-btn-next { right: -16px; }
+    .gc-slide { flex: 0 0 78%; }
+    .gallery-carousel { padding: 10px 11%; scroll-padding-inline: 11%; }
 }
 
 /* About Section */
