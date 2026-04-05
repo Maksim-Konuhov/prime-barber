@@ -469,105 +469,98 @@ section {
 /* Masters Section */
 .masters-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
 }
 
 .master-card {
-    background: var(--bg-card);
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    transition: all 0.3s ease;
-}
-
-.master-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-lg);
-}
-
-.master-photo {
     position: relative;
-    height: 350px;
+    border-radius: 14px;
     overflow: hidden;
-    background: var(--bg-secondary);
+    aspect-ratio: 3 / 4;
+    cursor: pointer;
 }
 
-.master-photo img {
+.master-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: transform 0.5s ease;
 }
 
-.master-photo-placeholder {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #d4a574 0%, #8b6f47 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    color: white;
-    font-weight: 600;
+.master-card:hover .master-img {
+    transform: scale(1.06);
 }
 
-.master-overlay {
+.master-caption {
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.75);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    padding: 20px;
-}
-
-.master-card:hover .master-overlay {
-    opacity: 1;
-}
-
-.master-bio {
+    right: 0;
+    padding: 20px 16px 16px;
+    background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
     color: white;
-    text-align: center;
-    font-size: 0.95rem;
-    line-height: 1.6;
+    transform: translateY(8px);
+    transition: transform 0.3s ease;
 }
 
-.master-info {
-    padding: 30px;
+.master-card:hover .master-caption {
+    transform: translateY(0);
+}
+
+.master-caption-top {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 8px;
+}
+
+.master-exp-badge {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--secondary-color);
+    background: rgba(212,165,116,0.18);
+    border: 1px solid rgba(212,165,116,0.4);
+    padding: 3px 9px;
+    border-radius: 20px;
 }
 
 .master-name {
-    font-size: 1.2rem;
-    color: var(--text);
-    margin-bottom: 5px;
-}
-
-.master-exp {
-    display: block;
-    color: var(--secondary-color);
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
     font-weight: 600;
-    margin-bottom: 15px;
-    font-size: 0.9rem;
+    color: #fff;
+    margin-bottom: 8px;
+    line-height: 1.2;
 }
 
-.master-services {
+.master-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 5px;
 }
 
-.master-services span {
-    background: var(--bg-secondary);
-    padding: 5px 12px;
+.master-tags span {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.75);
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 2px 8px;
     border-radius: 20px;
-    font-size: 0.8rem;
-    color: var(--text-muted);
+}
+
+@media (max-width: 900px) {
+    .masters-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .masters-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
 }
 
 /* Gallery Section */
