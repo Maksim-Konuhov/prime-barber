@@ -180,6 +180,7 @@ document.querySelectorAll('.service-card, .master-card, .gallery-item, .about-co
 // Gallery Carousel
 (function () {
     const carousel = document.querySelector('.gallery-carousel');
+    if (!carousel) return;
     const track = document.querySelector('.gc-track');
     const slides = Array.from(document.querySelectorAll('.gc-slide'));
     const dotsWrap = document.querySelector('.gc-dots');
@@ -224,15 +225,16 @@ document.querySelectorAll('.service-card, .master-card, .gallery-item, .about-co
 
     // Touch swipe
     let startX = 0;
-    carousel.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-    carousel.addEventListener('touchend', e => {
+    const outer = document.querySelector('.gallery-carousel-outer');
+    outer.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+    outer.addEventListener('touchend', e => {
         const diff = startX - e.changedTouches[0].clientX;
         if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
     });
 
     // Mouse drag
     let dragStart = null;
-    carousel.addEventListener('mousedown', e => { dragStart = e.clientX; });
+    outer.addEventListener('mousedown', e => { dragStart = e.clientX; });
     window.addEventListener('mouseup', e => {
         if (dragStart === null) return;
         const diff = dragStart - e.clientX;
