@@ -333,63 +333,129 @@ section {
     background: var(--bg-secondary);
 }
 
-.price-list-wrap {
-    max-width: 720px;
-    margin: 0 auto;
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.service-tile--wide {
+    grid-column: span 1;
+}
+
+.service-tile {
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: 16px;
-    overflow: hidden;
-    box-shadow: var(--shadow-lg);
-}
-
-.price-list {
-    list-style: none;
-    padding: 0;
-}
-
-.price-list li {
+    padding: 32px 24px 28px;
     display: flex;
-    align-items: baseline;
-    gap: 8px;
-    padding: 18px 36px;
-    border-bottom: 1px solid var(--border);
-    transition: background 0.2s ease;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-.price-list li:last-child {
-    border-bottom: none;
+.service-tile::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-accent);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    transform-origin: left;
 }
 
-.price-list li:hover {
-    background: rgba(212, 165, 116, 0.06);
+.service-tile:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(212, 165, 116, 0.15);
+    border-color: rgba(212, 165, 116, 0.4);
 }
 
-.pl-name {
-    font-size: 1rem;
+.service-tile:hover::before {
+    transform: scaleX(1);
+}
+
+.service-tile-icon {
+    width: 52px;
+    height: 52px;
+    background: linear-gradient(135deg, rgba(212, 165, 116, 0.15), rgba(139, 111, 71, 0.08));
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary-color);
+    flex-shrink: 0;
+}
+
+.service-tile-icon svg {
+    width: 26px;
+    height: 26px;
+}
+
+.service-tile-name {
+    font-size: 0.95rem;
     color: var(--text);
-    white-space: nowrap;
-}
-
-.pl-name em {
-    font-style: normal;
-    font-size: 0.82rem;
-    color: var(--text-muted);
-}
-
-.pl-dots {
+    font-weight: 500;
+    line-height: 1.4;
     flex: 1;
-    border-bottom: 2px dotted var(--border);
-    margin-bottom: 4px;
-    min-width: 20px;
 }
 
-.pl-price {
+.service-tile-name span {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-top: 3px;
+}
+
+.service-tile-price {
     font-family: 'Playfair Display', serif;
-    font-size: 1.05rem;
+    font-size: 1.4rem;
     font-weight: 700;
     color: var(--secondary-color);
-    white-space: nowrap;
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 900px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .services-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .service-tile {
+        padding: 22px 14px 20px;
+        gap: 10px;
+    }
+
+    .service-tile-icon {
+        width: 42px;
+        height: 42px;
+    }
+
+    .service-tile-icon svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .service-tile-name {
+        font-size: 0.85rem;
+    }
+
+    .service-tile-price {
+        font-size: 1.15rem;
+    }
 }
 
 /* Masters Section */
