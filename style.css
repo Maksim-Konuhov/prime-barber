@@ -1061,11 +1061,49 @@ section {
 /* Responsive Design */
 @media (max-width: 768px) {
     .nav-menu {
-        display: none;
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 64px;
+        left: -100%;
+        width: 100%;
+        background: var(--navbar-bg);
+        backdrop-filter: blur(12px);
+        padding: 20px 0 30px;
+        gap: 0;
+        text-align: center;
+        transition: left 0.3s ease;
+        z-index: 999;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-menu li {
+        padding: 14px 0;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .nav-menu li:last-child {
+        border-bottom: none;
     }
 
     .burger-menu {
         display: flex;
+    }
+
+    .burger-menu.active span:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .burger-menu.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .burger-menu.active span:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
     }
 
     .hero {

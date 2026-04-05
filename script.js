@@ -104,47 +104,6 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Mobile menu styles
-const mobileMenuStyle = document.createElement('style');
-mobileMenuStyle.textContent = `
-    @media (max-width: 768px) {
-        .nav-menu {
-            position: fixed;
-            left: -100%;
-            top: 70px;
-            flex-direction: column;
-            background-color: var(--navbar-bg);
-            width: 100%;
-            text-align: center;
-            transition: 0.3s;
-            gap: 0;
-            padding: 20px 0;
-            backdrop-filter: blur(10px);
-        }
-
-        .nav-menu.active {
-            left: 0;
-        }
-
-        .nav-menu li {
-            padding: 15px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .burger-menu.active span:nth-child(1) {
-            transform: rotate(-45deg) translate(-5px, 6px);
-        }
-
-        .burger-menu.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .burger-menu.active span:nth-child(3) {
-            transform: rotate(45deg) translate(-5px, -6px);
-        }
-    }
-`;
-document.head.appendChild(mobileMenuStyle);
 
 // Scroll to top button
 const scrollToTopBtn = document.createElement('button');
