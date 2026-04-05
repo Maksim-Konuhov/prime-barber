@@ -568,37 +568,27 @@ section {
     overflow: hidden;
 }
 
-.gallery-carousel-wrap {
-    position: relative;
-}
-
 .gallery-carousel {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    margin: 0 -40px;
-}
-
-.gc-track-outer {
-    flex: 1;
+    position: relative;
     overflow: hidden;
-    padding: 16px 0;
+    border-radius: 20px;
+    margin: 0 -20px;
 }
 
 .gc-track {
     display: flex;
-    align-items: center;
-    gap: 14px;
+    gap: 16px;
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
+    padding: 12px 0;
 }
 
 .gc-slide {
-    flex: 0 0 62%;
+    flex: 0 0 70%;
     border-radius: 16px;
     overflow: hidden;
     transition: transform 0.5s ease, opacity 0.5s ease, box-shadow 0.5s ease;
-    opacity: 0.4;
+    opacity: 0.35;
     transform: scale(0.9);
     cursor: pointer;
 }
@@ -606,47 +596,52 @@ section {
 .gc-slide.active {
     opacity: 1;
     transform: scale(1);
-    box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+    box-shadow: 0 20px 56px rgba(0,0,0,0.5);
 }
 
 .gc-slide img {
     width: 100%;
-    height: 360px;
+    height: 340px;
     object-fit: cover;
+    object-position: center 20%;
     display: block;
     pointer-events: none;
     user-select: none;
 }
 
 .gc-btn {
-    flex-shrink: 0;
-    width: 44px;
-    height: 44px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 46px;
+    height: 46px;
     border-radius: 50%;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    color: var(--text);
+    background: rgba(26,26,26,0.75);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(212,165,116,0.3);
+    color: #fff;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: background 0.2s, border-color 0.2s, transform 0.2s;
-    z-index: 2;
-    margin: 0 6px;
+    z-index: 10;
 }
+
+.gc-btn-prev { left: 16px; }
+.gc-btn-next { right: 16px; }
 
 .gc-btn:hover {
     background: var(--secondary-color);
     border-color: var(--secondary-color);
-    color: white;
-    transform: scale(1.1);
+    transform: translateY(-50%) scale(1.1);
 }
 
 .gc-dots {
     display: flex;
     justify-content: center;
     gap: 8px;
-    margin-top: 16px;
+    margin-top: 18px;
 }
 
 .gc-dot {
@@ -662,22 +657,19 @@ section {
 
 .gc-dot.active {
     background: var(--secondary-color);
-    transform: scale(1.35);
+    transform: scale(1.4);
 }
 
 @media (max-width: 600px) {
-    .gallery-carousel {
-        margin: 0 -20px;
-    }
     .gc-slide {
-        flex: 0 0 76%;
+        flex: 0 0 82%;
     }
     .gc-slide img {
         height: 240px;
     }
     .gc-btn {
-        width: 36px;
-        height: 36px;
+        width: 38px;
+        height: 38px;
     }
 }
 

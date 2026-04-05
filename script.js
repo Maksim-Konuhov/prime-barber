@@ -220,18 +220,18 @@ document.querySelectorAll('.service-card, .master-card, .gallery-item, .about-co
 
 // Gallery Carousel
 (function () {
+    const carousel = document.querySelector('.gallery-carousel');
     const track = document.querySelector('.gc-track');
     const slides = Array.from(document.querySelectorAll('.gc-slide'));
     const dotsWrap = document.querySelector('.gc-dots');
     const btnPrev = document.querySelector('.gc-btn-prev');
     const btnNext = document.querySelector('.gc-btn-next');
-    const outer = document.querySelector('.gc-track-outer');
 
     if (!track || !slides.length) return;
 
     let current = 0;
     const total = slides.length;
-    const GAP = 14;
+    const GAP = 16;
 
     // Build dots
     slides.forEach((_, i) => {
@@ -246,10 +246,10 @@ document.querySelectorAll('.service-card, .master-card, .gallery-item, .about-co
         slides.forEach((s, i) => s.classList.toggle('active', i === current));
         dotsWrap.querySelectorAll('.gc-dot').forEach((d, i) => d.classList.toggle('active', i === current));
 
-        const outerW = outer.offsetWidth;
+        const carouselW = carousel.offsetWidth;
         const slideW = slides[0].offsetWidth;
-        // Shift so active slide is centered in outer
-        const offset = current * (slideW + GAP) - (outerW - slideW) / 2;
+        // Center active slide inside carousel
+        const offset = current * (slideW + GAP) - (carouselW - slideW) / 2;
         track.style.transform = `translateX(${-offset}px)`;
     }
 
@@ -265,16 +265,16 @@ document.querySelectorAll('.service-card, .master-card, .gallery-item, .about-co
 
     // Touch swipe
     let startX = 0;
-    outer.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-    outer.addEventListener('touchend', e => {
+    carousel.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+    carousel.addEventListener('touchend', e => {
         const diff = startX - e.changedTouches[0].clientX;
         if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
     });
 
     // Mouse drag
     let dragStart = null;
-    outer.addEventListener('mousedown', e => { dragStart = e.clientX; e.preventDefault(); });
-    outer.addEventListener('mouseup', e => {
+    carousel.addEventListener('mousedown', e => { dragStart = e.clientX; });
+    window.addEventListener('mouseup', e => {
         if (dragStart === null) return;
         const diff = dragStart - e.clientX;
         if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
@@ -283,11 +283,8 @@ document.querySelectorAll('.service-card, .master-card, .gallery-item, .about-co
 
     // Keyboard
     document.addEventListener('keydown', e => {
-        const inView = outer.getBoundingClientRect();
-        if (inView.top < window.innerHeight && inView.bottom > 0) {
-            if (e.key === 'ArrowLeft') goTo(current - 1);
-            if (e.key === 'ArrowRight') goTo(current + 1);
-        }
+        if (e.key === 'ArrowLeft') goTo(current - 1);
+        if (e.key === 'ArrowRight') goTo(current + 1);
     });
 
     slides[0].classList.add('active');
