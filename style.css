@@ -567,8 +567,8 @@ section {
 .gallery-mosaic {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 300px 300px;
-    gap: 12px;
+    grid-template-rows: 190px 190px;
+    gap: 10px;
 }
 
 .gm-item {
@@ -643,10 +643,10 @@ section {
     .gm-item.gm-large {
         grid-column: 1 / 3;
         grid-row: auto;
-        height: 260px;
+        height: 200px;
     }
     .gm-item {
-        height: 200px;
+        height: 160px;
     }
 }
 
@@ -656,10 +656,10 @@ section {
     }
     .gm-item.gm-large {
         grid-column: 1;
-        height: 240px;
+        height: 200px;
     }
     .gm-item {
-        height: 200px;
+        height: 170px;
     }
 }
 
