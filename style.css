@@ -384,6 +384,8 @@ section {
 .service-tile-icon {
     width: 52px;
     height: 52px;
+    min-width: 52px;
+    min-height: 52px;
     background: linear-gradient(135deg, rgba(212, 165, 116, 0.15), rgba(139, 111, 71, 0.08));
     border-radius: 14px;
     display: flex;
@@ -391,11 +393,17 @@ section {
     justify-content: center;
     color: var(--secondary-color);
     flex-shrink: 0;
+    overflow: hidden;
 }
 
 .service-tile-icon svg {
-    width: 26px;
-    height: 26px;
+    width: 26px !important;
+    height: 26px !important;
+    min-width: 26px;
+    min-height: 26px;
+    max-width: 26px;
+    max-height: 26px;
+    flex-shrink: 0;
 }
 
 .service-tile-name {
