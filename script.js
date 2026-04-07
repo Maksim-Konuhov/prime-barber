@@ -1,19 +1,19 @@
 // Theme Toggle
 const themeToggle = document.getElementById('themeToggle');
-const html = document.documentElement;
 const body = document.body;
 
-// Load theme preference from localStorage
 const savedTheme = localStorage.getItem('theme') || 'light';
 if (savedTheme === 'dark') {
     body.classList.add('dark');
 }
 
-themeToggle.addEventListener('click', () => {
-    body.classList.toggle('dark');
-    const theme = body.classList.contains('dark') ? 'dark' : 'light';
-    localStorage.setItem('theme', theme);
-});
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark');
+        const theme = body.classList.contains('dark') ? 'dark' : 'light';
+        localStorage.setItem('theme', theme);
+    });
+}
 
 // Burger Menu
 const burgerMenu = document.querySelector('.burger-menu');
