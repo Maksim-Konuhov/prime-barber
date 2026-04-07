@@ -179,13 +179,12 @@ document.querySelectorAll('.service-card, .master-card, .gallery-item, .about-co
 
 // Gallery Carousel
 (function () {
-    const carousel = document.getElementById('galleryCarousel');
     const slides = Array.from(document.querySelectorAll('.gc-slide'));
     const dotsWrap = document.querySelector('.gc-dots');
     const btnPrev = document.querySelector('.gc-btn-prev');
     const btnNext = document.querySelector('.gc-btn-next');
 
-    if (!carousel || !slides.length) return;
+    if (!slides.length) return;
 
     let current = 0;
     const total = slides.length;
@@ -203,32 +202,10 @@ document.querySelectorAll('.service-card, .master-card, .gallery-item, .about-co
         current = (index + total) % total;
         slides.forEach((s, i) => s.classList.toggle('active', i === current));
         dotsWrap.querySelectorAll('.gc-dot').forEach((d, i) => d.classList.toggle('active', i === current));
-        slides[current].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     }
 
     btnPrev.addEventListener('click', () => goTo(current - 1));
     btnNext.addEventListener('click', () => goTo(current + 1));
-
-    slides.forEach((s, i) => s.addEventListener('click', () => goTo(i)));
-
-    // Update active dot on scroll
-    let scrollTimer;
-    carousel.addEventListener('scroll', () => {
-        clearTimeout(scrollTimer);
-        scrollTimer = setTimeout(() => {
-            const center = carousel.scrollLeft + carousel.offsetWidth / 2;
-            let closest = 0, minDist = Infinity;
-            slides.forEach((s, i) => {
-                const dist = Math.abs(s.offsetLeft + s.offsetWidth / 2 - center);
-                if (dist < minDist) { minDist = dist; closest = i; }
-            });
-            if (closest !== current) {
-                current = closest;
-                slides.forEach((s, i) => s.classList.toggle('active', i === current));
-                dotsWrap.querySelectorAll('.gc-dot').forEach((d, i) => d.classList.toggle('active', i === current));
-            }
-        }, 80);
-    });
 
     // Init
     slides[0].classList.add('active');
