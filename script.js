@@ -188,24 +188,44 @@ document.querySelectorAll('.service-card, .master-card, .gallery-item, .about-co
 
     let current = 0;
     const total = slides.length;
+    let animating = false;
 
     // Build dots
     slides.forEach((_, i) => {
         const dot = document.createElement('button');
         dot.className = 'gc-dot' + (i === 0 ? ' active' : '');
         dot.setAttribute('aria-label', 'Фото ' + (i + 1));
-        dot.addEventListener('click', () => goTo(i));
+        dot.addEventListener('click', () => goTo(i, i > current ? 'next' : 'prev'));
         dotsWrap.appendChild(dot);
     });
 
-    function goTo(index) {
+    function goTo(index, direction) {
+        if (animating) return;
+        const prev = current;
         current = (index + total) % total;
-        slides.forEach((s, i) => s.classList.toggle('active', i === current));
+        if (prev === current) return;
+
+        animating = true;
+
+        const enterClass = direction === 'next' ? 'entering-next' : 'entering-prev';
+        const exitClass  = direction === 'next' ? 'exiting-next'  : 'exiting-prev';
+
+        slides[prev].classList.remove('active');
+        slides[prev].classList.add(exitClass);
+
+        slides[current].classList.add('active', enterClass);
+
         dotsWrap.querySelectorAll('.gc-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+
+        setTimeout(() => {
+            slides[prev].classList.remove(exitClass);
+            slides[current].classList.remove(enterClass);
+            animating = false;
+        }, 420);
     }
 
-    btnPrev.addEventListener('click', () => goTo(current - 1));
-    btnNext.addEventListener('click', () => goTo(current + 1));
+    btnPrev.addEventListener('click', () => goTo(current - 1, 'prev'));
+    btnNext.addEventListener('click', () => goTo(current + 1, 'next'));
 
     // Init
     slides[0].classList.add('active');

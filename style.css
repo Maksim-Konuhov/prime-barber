@@ -566,38 +566,60 @@ section {
 /* Gallery Section */
 .gallery-carousel-outer {
     position: relative;
+    padding: 0 70px;
 }
 
 .gallery-carousel {
+    position: relative;
+    height: 460px;
+    max-width: 580px;
+    margin: 0 auto;
     overflow: hidden;
+    border-radius: 16px;
 }
 
 .gc-slide {
-    display: none;
-    justify-content: center;
-    align-items: center;
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .gc-slide.active {
-    display: flex;
-    animation: gc-fadein 0.35s ease;
-}
-
-@keyframes gc-fadein {
-    from { opacity: 0; transform: scale(0.97); }
-    to   { opacity: 1; transform: scale(1); }
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .gc-slide img {
-    max-height: 500px;
-    max-width: 100%;
-    width: auto;
-    object-fit: contain;
-    border-radius: 14px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
-    pointer-events: none;
     user-select: none;
 }
+
+/* Slide animations */
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(50px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-50px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideOutLeft {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(-50px); }
+}
+@keyframes slideOutRight {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(50px); }
+}
+
+.gc-slide.entering-next { animation: slideInRight 0.4s ease forwards; }
+.gc-slide.entering-prev { animation: slideInLeft  0.4s ease forwards; }
+.gc-slide.exiting-next  { animation: slideOutLeft  0.4s ease forwards; }
+.gc-slide.exiting-prev  { animation: slideOutRight 0.4s ease forwards; }
 
 .gc-btn {
     position: absolute;
@@ -649,9 +671,15 @@ section {
     transform: scale(1.4);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+    .gallery-carousel-outer { padding: 0 48px; }
+    .gallery-carousel { height: 360px; }
+}
+
+@media (max-width: 480px) {
+    .gallery-carousel-outer { padding: 0 40px; }
+    .gallery-carousel { height: 280px; }
     .gc-btn { width: 36px; height: 36px; }
-    .gc-slide img { max-height: 340px; }
 }
 
 /* About Section */
