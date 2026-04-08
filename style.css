@@ -599,7 +599,7 @@ section {
     opacity: 0;
 }
 .gc-slide[data-pos="-1"] {
-    transform: translate(-50%, -50%) translateX(-72%) scale(0.82);
+    transform: translate(-50%, -50%) translateX(-84%) scale(0.82);
     opacity: 1;
     filter: brightness(0.45);
     pointer-events: auto;
@@ -614,7 +614,7 @@ section {
     box-shadow: 0 30px 80px rgba(0,0,0,0.55);
 }
 .gc-slide[data-pos="1"] {
-    transform: translate(-50%, -50%) translateX(72%) scale(0.82);
+    transform: translate(-50%, -50%) translateX(84%) scale(0.82);
     opacity: 1;
     filter: brightness(0.45);
     pointer-events: auto;
@@ -722,6 +722,85 @@ section {
     background: var(--secondary-color);
     transition: width linear;
     border-radius: 1px;
+}
+
+/* Lightbox */
+.gc-lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.0);
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    transition: background 0.35s ease, backdrop-filter 0.35s ease;
+}
+
+.gc-lightbox.open {
+    display: flex;
+    animation: lb-in 0.35s ease forwards;
+}
+
+@keyframes lb-in {
+    from { background: rgba(0,0,0,0); backdrop-filter: blur(0px); }
+    to   { background: rgba(0,0,0,0.88); backdrop-filter: blur(14px); }
+}
+
+.gc-lightbox-img {
+    max-width: 90vw;
+    max-height: 88vh;
+    border-radius: 16px;
+    object-fit: contain;
+    box-shadow: 0 40px 120px rgba(0,0,0,0.7);
+    animation: lb-img-in 0.35s cubic-bezier(0.4,0,0.2,1) forwards;
+    user-select: none;
+}
+
+@keyframes lb-img-in {
+    from { opacity: 0; transform: scale(0.88); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+.gc-lightbox-close {
+    position: fixed;
+    top: 20px;
+    right: 24px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.2s;
+    z-index: 10000;
+}
+
+.gc-lightbox-close:hover {
+    background: var(--secondary-color);
+    transform: rotate(90deg);
+}
+
+/* Подсказка на центральном фото */
+.gc-slide[data-pos="0"]::after {
+    content: '🔍';
+    position: absolute;
+    bottom: 14px;
+    right: 16px;
+    font-size: 1.2rem;
+    opacity: 0;
+    transition: opacity 0.25s;
+    pointer-events: none;
+}
+
+.gc-slide[data-pos="0"]:hover::after {
+    opacity: 0.8;
 }
 
 @media (max-width: 768px) {

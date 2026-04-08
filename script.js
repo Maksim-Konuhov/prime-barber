@@ -276,6 +276,39 @@ document.querySelectorAll('.service-card, .master-card, .gallery-item, .about-co
     carousel.addEventListener('mouseenter', stopAuto);
     carousel.addEventListener('mouseleave', startAuto);
 
+    // Lightbox
+    const lightbox = document.getElementById('gcLightbox');
+    const lightboxImg = document.getElementById('gcLightboxImg');
+    const lightboxClose = document.getElementById('gcLightboxClose');
+
+    function openLightbox(src, alt) {
+        lightboxImg.src = src;
+        lightboxImg.alt = alt;
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        stopAuto();
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('open');
+        document.body.style.overflow = '';
+        startAuto();
+    }
+
+    // Click active slide to open lightbox
+    slides.forEach((slide) => {
+        slide.addEventListener('click', () => {
+            if (parseInt(slide.dataset.pos) === 0) {
+                const img = slide.querySelector('img');
+                openLightbox(img.src, img.alt);
+            }
+        });
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
     // Init
     updatePositions();
     startAuto();
