@@ -566,28 +566,63 @@ section {
 /* Gallery Section */
 .gallery-carousel-outer {
     position: relative;
-    padding: 0 70px;
 }
 
 .gallery-carousel {
     position: relative;
-    height: 460px;
-    max-width: 580px;
-    margin: 0 auto;
+    height: 500px;
     overflow: hidden;
-    border-radius: 16px;
 }
 
 .gc-slide {
     position: absolute;
-    inset: 0;
+    top: 50%;
+    left: 50%;
+    width: 58%;
+    height: 90%;
+    border-radius: 18px;
+    overflow: hidden;
+    cursor: pointer;
+    transition:
+        transform 0.65s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity   0.65s cubic-bezier(0.4, 0, 0.2, 1),
+        filter    0.65s ease,
+        box-shadow 0.65s ease;
+    transform: translate(-50%, -50%) translateX(200%) scale(0.7);
     opacity: 0;
     pointer-events: none;
+    z-index: 0;
 }
 
-.gc-slide.active {
+.gc-slide[data-pos="-2"] {
+    transform: translate(-50%, -50%) translateX(-200%) scale(0.65);
+    opacity: 0;
+}
+.gc-slide[data-pos="-1"] {
+    transform: translate(-50%, -50%) translateX(-72%) scale(0.82);
     opacity: 1;
+    filter: brightness(0.45);
     pointer-events: auto;
+    z-index: 1;
+}
+.gc-slide[data-pos="0"] {
+    transform: translate(-50%, -50%) translateX(0) scale(1);
+    opacity: 1;
+    filter: brightness(1);
+    pointer-events: auto;
+    z-index: 3;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+}
+.gc-slide[data-pos="1"] {
+    transform: translate(-50%, -50%) translateX(72%) scale(0.82);
+    opacity: 1;
+    filter: brightness(0.45);
+    pointer-events: auto;
+    z-index: 1;
+}
+.gc-slide[data-pos="2"] {
+    transform: translate(-50%, -50%) translateX(200%) scale(0.65);
+    opacity: 0;
 }
 
 .gc-slide img {
@@ -596,90 +631,108 @@ section {
     object-fit: cover;
     display: block;
     user-select: none;
+    pointer-events: none;
 }
 
-/* Slide animations */
-@keyframes slideInRight {
-    from { opacity: 0; transform: translateX(50px); }
-    to   { opacity: 1; transform: translateX(0); }
-}
-@keyframes slideInLeft {
-    from { opacity: 0; transform: translateX(-50px); }
-    to   { opacity: 1; transform: translateX(0); }
-}
-@keyframes slideOutLeft {
-    from { opacity: 1; transform: translateX(0); }
-    to   { opacity: 0; transform: translateX(-50px); }
-}
-@keyframes slideOutRight {
-    from { opacity: 1; transform: translateX(0); }
-    to   { opacity: 0; transform: translateX(50px); }
-}
-
-.gc-slide.entering-next { animation: slideInRight 0.4s ease forwards; }
-.gc-slide.entering-prev { animation: slideInLeft  0.4s ease forwards; }
-.gc-slide.exiting-next  { animation: slideOutLeft  0.4s ease forwards; }
-.gc-slide.exiting-prev  { animation: slideOutRight 0.4s ease forwards; }
-
+/* Кнопки */
 .gc-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    color: var(--text);
+    background: rgba(212, 165, 116, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(212, 165, 116, 0.35);
+    color: var(--secondary-color);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.2s, border-color 0.2s;
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
     z-index: 10;
 }
 
-.gc-btn-prev { left: 0; }
-.gc-btn-next { right: 0; }
+.gc-btn-prev { left: 10px; }
+.gc-btn-next { right: 10px; }
 
 .gc-btn:hover {
     background: var(--secondary-color);
-    border-color: var(--secondary-color);
-    color: white;
+    color: #fff;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 0 20px rgba(212, 165, 116, 0.4);
 }
 
+/* Точки */
 .gc-dots {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 8px;
-    margin-top: 18px;
+    margin-top: 22px;
 }
 
 .gc-dot {
     width: 8px;
     height: 8px;
-    border-radius: 50%;
+    border-radius: 4px;
     background: var(--border);
     border: none;
     cursor: pointer;
-    transition: background 0.3s, transform 0.3s;
+    transition: background 0.3s, width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     padding: 0;
 }
 
 .gc-dot.active {
     background: var(--secondary-color);
-    transform: scale(1.4);
+    width: 28px;
+}
+
+/* Счётчик */
+.gc-counter {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.82rem;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+}
+
+.gc-counter-current {
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+/* Прогресс-бар автоплея */
+.gc-progress {
+    width: 100%;
+    height: 2px;
+    background: var(--border);
+    margin-top: 14px;
+    border-radius: 1px;
+    overflow: hidden;
+}
+
+.gc-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--secondary-color);
+    transition: width linear;
+    border-radius: 1px;
 }
 
 @media (max-width: 768px) {
-    .gallery-carousel-outer { padding: 0 48px; }
-    .gallery-carousel { height: 360px; }
+    .gallery-carousel { height: 380px; }
+    .gc-slide { width: 72%; }
 }
 
 @media (max-width: 480px) {
-    .gallery-carousel-outer { padding: 0 40px; }
     .gallery-carousel { height: 280px; }
-    .gc-btn { width: 36px; height: 36px; }
+    .gc-slide { width: 80%; }
+    .gc-btn { width: 38px; height: 38px; }
 }
 
 /* About Section */
